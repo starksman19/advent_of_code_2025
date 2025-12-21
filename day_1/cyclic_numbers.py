@@ -25,36 +25,44 @@ class CyclicNumber:
 
 
 class CyclicNumber2(CyclicNumber):
-
     def add(self, amount: int) -> int:
-        times_passed = 0
+        times_zero = 0
+        current = self.value
 
-        temp_val = self.value + amount
+        if current == 0:
+            first_zero = self.from_start_to_stop
+        else:
+            first_zero = self.from_start_to_stop - current
 
-        while temp_val > self.stop:
-            temp_val -= self.from_start_to_stop
-            times_passed += 1
+        if amount >= first_zero:
+            times_zero += 1
+            amount -= first_zero
 
-        self.value = temp_val
+            times_zero += amount // self.from_start_to_stop
 
-        if self.value == 0:
-            times_passed += 1
+        self.value = (
+            self.value + (first_zero if times_zero > 0 else 0) + amount
+        ) % self.from_start_to_stop
 
-        return times_passed
+        return times_zero
 
     def sub(self, amount: int) -> int:
-        times_passed = 0
+        times_zero = 0
+        current = self.value
 
-        temp_val = self.value - amount
+        if current == 0:
+            first_zero = self.from_start_to_stop
+        else:
+            first_zero = current
 
-        while temp_val < self.start:
-            temp_val += self.from_start_to_stop
-            times_passed += 1
+        if amount >= first_zero:
+            times_zero += 1
+            amount -= first_zero
 
-        self.value = temp_val
+            times_zero += amount // self.from_start_to_stop
 
-        if self.value == 0:
-            times_passed += 1
+        self.value = (
+            self.value - (first_zero if times_zero > 0 else 0) - amount
+        ) % self.from_start_to_stop
 
-        return times_passed
-
+        return times_zero

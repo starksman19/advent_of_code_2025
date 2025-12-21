@@ -9,7 +9,7 @@ if __name__ == "__main__":
 
     for val in inp:
         if val[0] == "R":
-            ret += (cyclic_number.add(int(val[1:])))
+            ret += cyclic_number.add(int(val[1:]))
         else:
-            ret += (cyclic_number.sub(int(val[1:])))
+            ret += cyclic_number.sub(int(val[1:]))
     print(ret)
